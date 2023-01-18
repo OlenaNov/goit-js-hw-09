@@ -6,7 +6,6 @@ import Notiflix from 'notiflix';
 const inputDatetimePicker = document.querySelector('#datetime-picker');
 const btnStart = document.querySelector('[data-start]');
 const timerBox = document.querySelector('.timer');
-const test = document.querySelectorAll('.field');
 const daysRemaining = document.querySelector('[data-days]');
 const hoursRemaining = document.querySelector('[data-hours]');
 const minutesRemaining = document.querySelector('[data-minutes]');
