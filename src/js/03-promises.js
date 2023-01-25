@@ -3,21 +3,19 @@ import Notiflix from 'notiflix';
 
 const refs = {
   formCreatePromise: document.querySelector('.form'),
-  inputFirstDelay: document.querySelector('input[name = "delay"]'),
-  inputStepDelay: document.querySelector('input[name = "step"]'),
-  inputAmount: document.querySelector('input[name = "amount"]'),
-  btnSubmit: document.querySelector('button[type="submit"]'), 
 };
 
 refs.formCreatePromise.addEventListener('submit', onFormSubmit);
-refs.btnSubmit.disabled = false;
+const btnSubmit = refs.formCreatePromise.elements[3];
+onActiveBtn(false);
 
 function onFormSubmit(evt) {
   evt.preventDefault();
-  const inputFirstDelay = Number(refs.inputFirstDelay.value);
-  const inputStepDelay = Number(refs.inputStepDelay.value);
-  const inputAmount = Number(refs.inputAmount.value);
-  refs.btnSubmit.disabled = true;
+  const inputFirstDelay = Number(refs.formCreatePromise.elements[0].value);
+  const inputStepDelay = Number(refs.formCreatePromise.elements[1].value);
+  const inputAmount = Number(refs.formCreatePromise.elements[2].value);
+
+  onActiveBtn(true);
   
   for (let i = 0; i < inputAmount; i += 1){
     const deleyCounter = inputFirstDelay + inputStepDelay * i;
@@ -26,7 +24,7 @@ function onFormSubmit(evt) {
     .catch(error)
     .finally(() => {
       if((i + 1) === inputAmount) {
-        refs.btnSubmit.disabled = false;
+        onActiveBtn(false);
       }
     });
   };
@@ -54,3 +52,6 @@ function createPromise(position, delay) {
   });
 };
 
+function onActiveBtn(state) {
+  btnSubmit.disabled = state;
+};

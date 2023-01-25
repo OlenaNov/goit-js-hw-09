@@ -8,8 +8,7 @@ btnStart.addEventListener('click', onBtnStartColorSwitcer)
 
 function onBtnStartColorSwitcer() {
     intervalId = setInterval(changeColor, 1000);
-    btnStart.disabled = true;
-    btnStop.disabled = false;
+    onStateBtns(true, false);
 }
 
 function getRandomHexColor() {
@@ -24,6 +23,10 @@ btnStop.addEventListener('click', onButtonStop);
 
 function onButtonStop() {
         clearInterval(intervalId); 
-        btnStop.disabled = true;
-        btnStart.disabled = false;
-}
+        onStateBtns(false, true);
+};
+
+function onStateBtns(stateStart, stateStop) {
+    btnStart.disabled = stateStart;
+    btnStop.disabled = stateStop;
+};

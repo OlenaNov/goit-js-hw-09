@@ -30,13 +30,13 @@ const options = {
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
-    onClose(selectedDates) {
-        if(selectedDates[0] < new Date()) {
+    onClose([selectedDates]) {
+        if(selectedDates < Date.now()) {
             Notiflix.Notify.warning('Please choose a date in the future');
             return;
         }
         btnStart.disabled = false;
-        selectedDate = selectedDates[0];
+        selectedDate = selectedDates;
     }
   };
 
@@ -50,7 +50,7 @@ const options = {
   }
 
   function countDown() {
-    let  timeRemaining = selectedDate - new Date();
+    let  timeRemaining = selectedDate - Date.now();
     convertMs(timeRemaining);
     addLeadingZero(valuesRemaining);
 
@@ -78,9 +78,13 @@ function convertMs(ms) {
     return { days, hours, minutes, seconds };
   };
 
-  function addLeadingZero(value) {
-    daysRemaining.textContent = value.days.toString().padStart(1, "0");
-    hoursRemaining.textContent = value.hours.toString().padStart(1, "0");
-    minutesRemaining.textContent = value.minutes.toString().padStart(1, "0");
-    secondsRemaining.textContent = value.seconds.toString().padStart(1, "0");
+  function addLeadingZero(values) {
+    daysRemaining.textContent = onDisplayTimeUnit(values.days);
+    hoursRemaining.textContent = onDisplayTimeUnit(values.hours);
+    minutesRemaining.textContent = onDisplayTimeUnit(values.minutes);
+    secondsRemaining.textContent = onDisplayTimeUnit(values.seconds);
   };
+
+  function onDisplayTimeUnit(displayValue) {
+    return displayValue.toString().padStart(2, "0");
+};
